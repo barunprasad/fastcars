@@ -1,4 +1,3 @@
-// src/components/Footer.tsx
 import Link from "next/link";
 import { Instagram, Twitter, Github, Linkedin } from "lucide-react";
 
@@ -6,7 +5,6 @@ export function Footer() {
   return (
     <footer className="bg-black text-neutral-400">
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Brand & Tagline */}
         <div>
           <h2 className="text-2xl font-racing text-white mb-2">
             Fast Cars Showcase
@@ -17,7 +15,6 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Navigation */}
         <div>
           <h3 className="text-lg font-medium text-white mb-2">Navigate</h3>
           <ul className="space-y-1 text-sm">
@@ -39,18 +36,9 @@ export function Footer() {
                 Blog
               </Link>
             </li>
-            <li>
-              <Link
-                href="/about"
-                className="hover:text-white transition-colors"
-              >
-                About
-              </Link>
-            </li>
           </ul>
         </div>
 
-        {/* Social & Credits */}
         <div>
           <h3 className="text-lg font-medium text-white mb-2">Connect</h3>
           <div className="flex space-x-4 mb-4">
