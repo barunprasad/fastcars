@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts();
-  return posts.map((post: any) => ({
+  return posts.map((post) => ({
     slug: post.slug.current,
   }));
 }
@@ -59,7 +59,7 @@ export default async function BlogPostPage({
           </div>
           {post.categories && post.categories.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {post.categories.map((category: any) => (
+              {post.categories.map((category) => (
                 <Badge key={category.title} variant="secondary">
                   {category.title}
                 </Badge>

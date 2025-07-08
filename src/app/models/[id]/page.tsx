@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const cars = await getAllCars();
-  return cars.map((car: any) => ({ id: car._id }));
+  return cars.map((car) => ({ id: car._id }));
 }
 
 export default async function CarDetailPage({

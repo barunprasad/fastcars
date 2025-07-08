@@ -12,19 +12,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-
-interface Car {
-  _id: string;
-  name: string;
-  manufacturer: string;
-  year: number;
-  topSpeed: number;
-  acceleration: string;
-  horsepower: number;
-  price: string;
-  mainImage: { asset: { url: string } };
-  era: string;
-}
+import { Car } from "@/types/sanity";
 
 interface ModelsListProps {
   cars: Car[];

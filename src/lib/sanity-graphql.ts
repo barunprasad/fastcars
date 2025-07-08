@@ -9,9 +9,20 @@ import {
   GET_BLOG_HERO,
   GET_MODELS_HERO,
 } from "@/lib/graphql-queries";
+import {
+  GetAllBlogPostsResponse,
+  GetAllCarsResponse,
+  GetBlogHeroResponse,
+  GetBlogPostBySlugResponse,
+  GetCarByIdResponse,
+  GetCarsByEraResponse,
+  GetHomepageDataResponse,
+  GetModelsHeroResponse,
+} from "@/types/sanity";
 
 export async function getHomepageData() {
-  const data = (await graphqlClient.request(GET_HOMEPAGE_DATA)) as any;
+  const data =
+    await graphqlClient.request<GetHomepageDataResponse>(GET_HOMEPAGE_DATA);
   const homepage = data.allHomepage[0] || {};
   return {
     homepage,
@@ -22,40 +33,49 @@ export async function getHomepageData() {
 }
 
 export async function getAllCars() {
-  const data = (await graphqlClient.request(GET_ALL_CARS)) as any;
+  const data = await graphqlClient.request<GetAllCarsResponse>(GET_ALL_CARS);
   return data.allCar;
 }
 
 export async function getCarById(id: string) {
-  const data = (await graphqlClient.request(GET_CAR_BY_ID, { id })) as any;
+  const data = await graphqlClient.request<GetCarByIdResponse>(GET_CAR_BY_ID, {
+    id,
+  });
   return data.Car;
 }
 
 export async function getAllBlogPosts() {
-  const data = (await graphqlClient.request(GET_ALL_BLOG_POSTS)) as any;
+  const data =
+    await graphqlClient.request<GetAllBlogPostsResponse>(GET_ALL_BLOG_POSTS);
+
   return data.allBlogPost;
 }
 
 export async function getBlogPostBySlug(slug: string) {
-  const data = (await graphqlClient.request(GET_BLOG_POST_BY_SLUG, {
-    slug,
-  })) as any;
+  const data = await graphqlClient.request<GetBlogPostBySlugResponse>(
+    GET_BLOG_POST_BY_SLUG,
+    { slug },
+  );
   return data.allBlogPost[0];
 }
 
 export async function getCarsByEra(era: string) {
-  const data = (await graphqlClient.request(GET_CARS_BY_ERA, { era })) as any;
+  const data = await graphqlClient.request<GetCarsByEraResponse>(
+    GET_CARS_BY_ERA,
+    { era },
+  );
+
   return data.allCar;
 }
 
 export async function getBlogHeroData() {
-  const { allBlogHero } = (await graphqlClient.request(GET_BLOG_HERO)) as any;
-  return allBlogHero[0] || null;
+  const data = await graphqlClient.request<GetBlogHeroResponse>(GET_BLOG_HERO);
+
+  return data.allBlogHero[0] || null;
 }
 
 export async function getModelsHeroData() {
-  const { allModelsHero } = (await graphqlClient.request(
-    GET_MODELS_HERO,
-  )) as any;
-  return allModelsHero[0] || null;
+  const data =
+    await graphqlClient.request<GetModelsHeroResponse>(GET_MODELS_HERO);
+  return data.allModelsHero[0] || null;
 }

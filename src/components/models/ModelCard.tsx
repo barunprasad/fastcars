@@ -9,24 +9,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Gauge, Zap } from "lucide-react";
+import { Car } from "@/types/sanity";
 
 interface ModelCardProps {
-  car: {
-    _id: string;
-    name: string;
-    manufacturer: string;
-    year: number;
-    topSpeed: number;
-    acceleration: string;
-    price: string;
-    mainImage: {
-      asset: {
-        url: string;
-      };
-    };
-    era: string;
-    horsepower: number;
-  };
+  car: Car;
 }
 
 export function ModelCard({ car }: ModelCardProps) {
