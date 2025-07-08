@@ -1,70 +1,91 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Trophy, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import { fadeSlideUp } from "@/lib/animations";
 
-const records = [
-  {
-    title: "Fastest Production Car",
-    record: "304.773 mph",
-    holder: "Bugatti Chiron Super Sport 300+",
-    year: "2019",
-    icon: Trophy,
-  },
-  {
-    title: "Quickest 0-60 mph",
-    record: "1.85 seconds",
-    holder: "Rimac Nevera",
-    year: "2021",
-    icon: Zap,
-  },
-  {
-    title: "Highest Top Speed (Claimed)",
-    record: "330 mph",
-    holder: "Koenigsegg Jesko Absolut",
-    year: "Theoretical",
-    icon: TrendingUp,
-  },
-];
+type Record = { title: string; record: string; holder: string; year: string };
 
-export function SpeedRecords() {
+type Props = {
+  data: {
+    title: string;
+    subtitle: string;
+    videoUrl: { asset: { url: string } };
+    records: Record[];
+  };
+};
+
+export function SpeedRecords({ data }: Props) {
   return (
-    <section className="text-white py-20 px-6 bg-neutral-900">
-      <div className="max-w-7xl mx-auto">
-        <h2 className=" text-4xl md:text-5xl font-racing text-center mb-12">
-          CURRENT SPEED RECORDS
-        </h2>
+    <motion.section
+      className="py-20 px-6 bg-neutral-900 text-white"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <motion.div
+          variants={fadeSlideUp}
+          custom={1}
+          className="flex-1 flex justify-center"
+        >
+          <div className="w-full h-64 sm:h-80 md:h-96 overflow-hidden rounded-lg shadow-lg">
+            <video
+              src={data.videoUrl?.asset?.url}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </motion.div>
+        <motion.div
+          variants={fadeSlideUp}
+          custom={0}
+          className="flex-1 text-center lg:text-left"
+        >
+          <h2 className="text-white text-4xl md:text-7xl font-racing mb-4">
+            {data.title}
+          </h2>
+          <p className="text-lg text-neutral-400">{data.subtitle}</p>
+        </motion.div>
+      </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {records.map((record, index) => {
-            const Icon = record.icon;
-            return (
-              <Card
-                key={index}
-                className="text-white bg-black border-neutral-800 hover:border-neutral-600 transition-colors"
-              >
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <Icon className="w-8 h-8 " />
-                    <Badge
-                      variant="outline"
-                      className="text-white border-neutral-600 "
-                    >
-                      {record.year}
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-xl font-racing mt-4">
-                    {record.title}
-                  </CardTitle>
+      <motion.div
+        variants={fadeSlideUp}
+        custom={1}
+        className="mt-12 max-w-7xl mx-auto"
+      >
+        <motion.div
+          variants={fadeSlideUp}
+          custom={3}
+          className="grid w-full grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          {data.records.map((rec, i) => (
+            <motion.div key={i} variants={fadeSlideUp} custom={4 + i}>
+              <Card className="text-white bg-neutral-950 border-neutral-800 transition-colors">
+                <CardHeader className="flex justify-between items-start pb-2">
+                  <Badge
+                    variant="outline"
+                    className="text-white border-neutral-600"
+                  >
+                    {rec.year}
+                  </Badge>
                 </CardHeader>
+                <CardTitle className="text-lg font-medium px-5">
+                  {rec.title}
+                </CardTitle>
                 <CardContent>
-                  <p className="text-3xl font-bold mb-2">{record.record}</p>
-                  <p className="text-gray-400">{record.holder}</p>
+                  <p className="text-xl font-bold mb-2">{rec.record}</p>
+                  <p className="text-neutral-400">{rec.holder}</p>
                 </CardContent>
               </Card>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 }

@@ -18,7 +18,7 @@ export function Navigation() {
   const pathname = usePathname();
   return (
     <NavigationMenu>
-      <NavigationMenuList className="flex space-x-6">
+      <NavigationMenuList className="flex space-x-1">
         {NavLinkItems.map(({ label, value }) => {
           const isActive = pathname === value;
 

@@ -33,7 +33,7 @@ export default async function BlogPostPage({
     <article className="min-h-screen pt-20">
       <div className="max-w-4xl mx-auto px-6 py-8">
         <Link href="/blog">
-          <Button variant="ghost" className="mb-6">
+          <Button variant="ghost" className="mb-6 cursor-pointer">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Blog
           </Button>
@@ -76,6 +76,7 @@ export default async function BlogPostPage({
               alt={post.title}
               fill
               className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
               priority
             />
           </div>
@@ -132,6 +133,7 @@ export default async function BlogPostPage({
                   width={64}
                   height={64}
                   className="rounded-full"
+                  sizes="(max-width: 64px) 100vw, (max-width: 32px) 50vw, 600px"
                 />
               )}
               <div>

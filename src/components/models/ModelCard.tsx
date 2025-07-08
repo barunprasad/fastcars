@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Gauge, Zap, DollarSign } from "lucide-react";
+import { Gauge, Zap } from "lucide-react";
 
 interface ModelCardProps {
   car: {
@@ -49,7 +49,7 @@ export function ModelCard({ car }: ModelCardProps) {
 
       <CardContent className="p-6">
         <h3 className="text-2xl font-racing mb-1">{car.name}</h3>
-        <p className="text-gray-400 mb-4">
+        <p className="text-neutral-400 mb-4">
           {car.manufacturer} • {car.year}
         </p>
 
@@ -67,14 +67,9 @@ export function ModelCard({ car }: ModelCardProps) {
 
       <CardFooter className="p-6 pt-0 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <DollarSign className="w-5 h-5 text-green-500" />
           <span className="text-xl font-bold">{car.price}</span>
         </div>
-        <Button
-          asChild
-          variant="outline"
-          className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-        >
+        <Button asChild variant="outline" className="text-neutral-800">
           <Link href={`/models/${car._id}`}>View Details</Link>
         </Button>
       </CardFooter>

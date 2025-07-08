@@ -1,101 +1,104 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
-import { Cog, Gauge } from "lucide-react";
+"use client";
 
-const engines = {
-  v12: [
-    {
-      name: "Ferrari Colombo V12",
-      description: "The heart of Ferrari since 1947",
-      specs: "Up to 6.5L, 800+ hp in modern applications",
-      cars: ["Ferrari 812 Superfast", "Ferrari Purosangue"],
-    },
-    {
-      name: "Lamborghini V12",
-      description: "The raging bull's signature sound",
-      specs: "6.5L naturally aspirated, 770 hp",
-      cars: ["Aventador SVJ", "Countach LPI 800-4"],
-    },
-  ],
-  v8: [
-    {
-      name: "Ferrari Twin-Turbo V8",
-      description: "Multiple Engine of the Year awards",
-      specs: "3.9L twin-turbo, up to 710 hp",
-      cars: ["F8 Tributo", "SF90 Stradale"],
-    },
-    {
-      name: "McLaren M838T",
-      description: "Ricardo-built masterpiece",
-      specs: "3.8L-4.0L twin-turbo, up to 789 hp",
-      cars: ["720S", "765LT", "Senna"],
-    },
-  ],
-  exotic: [
-    {
-      name: "Bugatti W16",
-      description: "Four turbos, sixteen cylinders, one goal",
-      specs: "8.0L quad-turbo, 1,578 hp",
-      cars: ["Chiron Super Sport", "Veyron"],
-    },
-    {
-      name: "Koenigsegg TFG",
-      description: "Freevalve technology revolutionary",
-      specs: "5.0L twin-turbo, 1,600 hp on E85",
-      cars: ["Jesko", "Gemera"],
-    },
-  ],
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import { Gauge } from "lucide-react";
+import { motion } from "motion/react";
+import { fadeSlideUp } from "@/lib/animations";
+
+type Engine = {
+  name: string;
+  description: string;
+  specs: string;
+  cars: string[];
+};
+type Variant = { key: string; label: string; engines: Engine[] };
+
+type Props = {
+  data: {
+    title: string;
+    subtitle: string;
+    videoUrl?: {
+      asset: {
+        url: string;
+      };
+    };
+    variants: Variant[];
+  };
+  defaultValue?: string;
 };
 
-export function LegendaryEngines() {
+export function LegendaryEngines({ data, defaultValue }: Props) {
   return (
-    <section className="py-20 px-6 bg-black">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-white text-4xl md:text-5xl font-racing text-center mb-4">
-          LEGENDARY POWERPLANTS
-        </h2>
-        <p className="text-xl text-gray-400 text-center mb-12">
-          The engines that define automotive excellence
-        </p>
+    <motion.section
+      className="py-20 px-6 bg-black"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <motion.div
+          variants={fadeSlideUp}
+          custom={0}
+          className="flex-1 text-center lg:text-left"
+        >
+          <h2 className="text-white text-4xl md:text-7xl font-racing mb-4">
+            {data.title}
+          </h2>
+          <p className="text-lg text-neutral-400">{data.subtitle}</p>
+        </motion.div>
 
-        <Tabs defaultValue="v12" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-neutral-900">
-            <TabsTrigger
-              value="v12"
-              className="text-white data-[state=active]:bg-red-600"
-            >
-              V12 Masters
-            </TabsTrigger>
-            <TabsTrigger
-              value="v8"
-              className="text-white data-[state=active]:bg-red-600"
-            >
-              V8 Turbos
-            </TabsTrigger>
-            <TabsTrigger
-              value="exotic"
-              className="text-white data-[state=active]:bg-red-600"
-            >
-              Exotic Config
-            </TabsTrigger>
+        <motion.div
+          variants={fadeSlideUp}
+          custom={1}
+          className="flex-1 flex justify-center"
+        >
+          <div className="w-auto h-64 sm:h-80 md:h-96 overflow-hidden rounded-lg shadow-lg">
+            <video
+              src={data?.videoUrl?.asset.url}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.div
+        variants={fadeSlideUp}
+        custom={2}
+        className="mt-12 max-w-7xl mx-auto"
+      >
+        <Tabs defaultValue={defaultValue} className="w-full">
+          <TabsList className="grid grid-cols-3 bg-neutral-900 rounded-lg overflow-hidden">
+            {data.variants.map((v) => (
+              <TabsTrigger
+                key={v.key}
+                value={v.key}
+                className="text-white data-[state=active]:bg-red-600"
+              >
+                {v.label}
+              </TabsTrigger>
+            ))}
           </TabsList>
 
-          {Object.entries(engines).map(([key, engineList]) => (
-            <TabsContent key={key} value={key} className="mt-6">
+          {data.variants.map((v) => (
+            <TabsContent key={v.key} value={v.key} className="mt-6">
               <div className="grid md:grid-cols-2 gap-6">
-                {engineList.map((engine, index) => (
+                {v.engines.map((engine, j) => (
                   <Card
-                    key={index}
+                    key={j}
                     className="text-white bg-neutral-900 border-neutral-800"
                   >
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
-                        <Cog className="w-8 h-8 flex-shrink-0" />
                         <div>
                           <h3 className="text-xl font-bold mb-2">
                             {engine.name}
                           </h3>
-                          <p className="text-gray-400 mb-3">
+                          <p className="text-neutral-400 mb-3">
                             {engine.description}
                           </p>
                           <div className="flex items-center gap-2 text-sm mb-3">
@@ -106,7 +109,7 @@ export function LegendaryEngines() {
                             {engine.cars.map((car) => (
                               <span
                                 key={car}
-                                className="text-xs bg-black px-2 py-1 rounded border border-gray-700"
+                                className="text-xs bg-black px-2 py-1 rounded border border-neutral-700"
                               >
                                 {car}
                               </span>
@@ -121,7 +124,7 @@ export function LegendaryEngines() {
             </TabsContent>
           ))}
         </Tabs>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

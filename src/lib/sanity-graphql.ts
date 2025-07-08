@@ -6,13 +6,18 @@ import {
   GET_ALL_BLOG_POSTS,
   GET_BLOG_POST_BY_SLUG,
   GET_CARS_BY_ERA,
+  GET_BLOG_HERO,
+  GET_MODELS_HERO,
 } from "@/lib/graphql-queries";
 
 export async function getHomepageData() {
   const data = (await graphqlClient.request(GET_HOMEPAGE_DATA)) as any;
+  const homepage = data.allHomepage[0] || {};
   return {
-    homepage: data.allHomepage[0] || null,
+    homepage,
     featuredCars: data.allCar || [],
+    legendary: homepage?.legendaryEngines || null,
+    speedRecordsSection: homepage.speedRecordsSection ?? null,
   };
 }
 
@@ -41,4 +46,16 @@ export async function getBlogPostBySlug(slug: string) {
 export async function getCarsByEra(era: string) {
   const data = (await graphqlClient.request(GET_CARS_BY_ERA, { era })) as any;
   return data.allCar;
+}
+
+export async function getBlogHeroData() {
+  const { allBlogHero } = (await graphqlClient.request(GET_BLOG_HERO)) as any;
+  return allBlogHero[0] || null;
+}
+
+export async function getModelsHeroData() {
+  const { allModelsHero } = (await graphqlClient.request(
+    GET_MODELS_HERO,
+  )) as any;
+  return allModelsHero[0] || null;
 }

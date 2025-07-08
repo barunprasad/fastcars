@@ -5,70 +5,66 @@ import { getCarById, getAllCars } from "@/lib/sanity-graphql";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Gauge, Zap, Cog, DollarSign, Calendar, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const cars = await getAllCars();
-  return cars.map((car: any) => ({
-    id: car._id,
-  }));
+  return cars.map((car: any) => ({ id: car._id }));
 }
 
 export default async function CarDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const car = await getCarById(params.id);
+  const { id: carId } = await params;
+  const car = await getCarById(carId);
 
-  if (!car) {
-    notFound();
-  }
+  if (!car) notFound();
+
+  const slides = [car.mainImage, ...(car.gallery || [])];
 
   return (
     <div className="min-h-screen pt-20">
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Link href="/models">
-          <Button variant="ghost" className="mb-6">
+          <Button variant="ghost" className="mb-6 cursor-pointer">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Models
           </Button>
         </Link>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Image Gallery */}
           <div className="space-y-4">
-            <div className="relative h-96 overflow-hidden rounded-lg">
-              <Image
-                src={car.mainImage.asset.url}
-                alt={car.name}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-            {car.gallery && car.gallery.length > 0 && (
-              <div className="grid grid-cols-3 gap-4">
-                {car.gallery.slice(0, 3).map((img: any, index: number) => (
-                  <div
-                    key={index}
-                    className="relative h-24 overflow-hidden rounded-lg"
-                  >
+            <Carousel className="relative w-full rounded-lg overflow-hidden">
+              <CarouselContent>
+                {slides.map((img, idx) => (
+                  <CarouselItem key={idx} className="relative h-96 w-full">
                     <Image
                       src={img.asset.url}
-                      alt={`${car.name} ${index + 1}`}
+                      alt={`${car.name} image ${idx + 1}`}
                       fill
                       className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                      priority={idx === 0}
                     />
-                  </div>
+                  </CarouselItem>
                 ))}
-              </div>
-            )}
+              </CarouselContent>
+              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1 text-white cursor-pointer" />
+              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1 text-white cursor-pointer" />
+            </Carousel>
           </div>
 
-          {/* Car Details */}
           <div>
             <div className="mb-6">
               <Badge className="mb-2 bg-red-600">{car.era}</Badge>
@@ -81,33 +77,21 @@ export default async function CarDetailPage({
             <Card className="text-white bg-neutral-900 border-neutral-800 p-6 mb-6">
               <h2 className="text-xl font-bold mb-4">Performance Specs</h2>
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-3">
-                  <Gauge className="w-5 h-5 text-red-500" />
-                  <div>
-                    <p className="text-sm text-neutral-400">Top Speed</p>
-                    <p className="font-bold">{car.topSpeed} mph</p>
-                  </div>
+                <div>
+                  <p className="text-sm text-neutral-400">Top Speed</p>
+                  <p className="font-bold">{car.topSpeed} mph</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Zap className="w-5 h-5 text-yellow-500" />
-                  <div>
-                    <p className="text-sm text-neutral-400">0-60 mph</p>
-                    <p className="font-bold">{car.acceleration}</p>
-                  </div>
+                <div>
+                  <p className="text-sm text-neutral-400">0-60 mph</p>
+                  <p className="font-bold">{car.acceleration}</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Cog className="w-5 h-5 text-blue-500" />
-                  <div>
-                    <p className="text-sm text-neutral-400">Horsepower</p>
-                    <p className="font-bold">{car.horsepower} hp</p>
-                  </div>
+                <div>
+                  <p className="text-sm text-neutral-400">Horsepower</p>
+                  <p className="font-bold">{car.horsepower} hp</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <DollarSign className="w-5 h-5 text-green-500" />
-                  <div>
-                    <p className="text-sm text-neutral-400">Price</p>
-                    <p className="font-bold">{car.price}</p>
-                  </div>
+                <div>
+                  <p className="text-sm text-neutral-400">Price</p>
+                  <p className="font-bold">{car.price}</p>
                 </div>
               </div>
             </Card>

@@ -10,6 +10,43 @@ export const GET_HOMEPAGE_DATA = gql`
           url
         }
       }
+
+      legendaryEngines {
+        title
+        subtitle
+        videoUrl {
+          asset {
+            url
+          }
+        }
+
+        variants {
+          key
+          label
+          engines {
+            name
+            description
+            specs
+            cars
+          }
+        }
+      }
+
+      speedRecordsSection {
+        title
+        subtitle
+        videoUrl {
+          asset {
+            url
+          }
+        }
+        records {
+          title
+          record
+          holder
+          year
+        }
+      }
     }
     allCar(
       where: { featured: { eq: true } }
@@ -167,6 +204,34 @@ export const GET_CARS_BY_ERA = gql`
       acceleration
       price
       mainImage {
+        asset {
+          url
+        }
+      }
+    }
+  }
+`;
+
+export const GET_BLOG_HERO = gql`
+  query GetBlogHero {
+    allBlogHero(limit: 1) {
+      heroTitle
+      heroSubtitle
+      heroVideo {
+        asset {
+          url
+        }
+      }
+    }
+  }
+`;
+
+export const GET_MODELS_HERO = gql`
+  query GetModelsHero {
+    allModelsHero(limit: 1) {
+      heroTitle
+      heroSubtitle
+      heroVideo {
         asset {
           url
         }

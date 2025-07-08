@@ -18,74 +18,69 @@ interface BlogCardProps {
     excerpt: string;
     publishedAt: string;
     author: { name: string };
-    mainImage: {
-      asset: {
-        url: string;
-      };
-    };
+    mainImage?: { asset: { url: string } };
     categories?: Array<{ title: string }>;
     era?: string;
   };
 }
 
 export function BlogCard({ post }: BlogCardProps) {
+  const href = `/blog/${post.slug.current}`;
+
   return (
-    <Card className="overflow-hidden bg-neutral-900 border-neutral-800 hover:border-red-600 transition-all duration-300 h-full flex flex-col">
-      <CardHeader className="p-0">
-        <Link href={`/blog/${post.slug.current}`}>
+    <Link href={href} className="block h-full">
+      <Card className="group h-full flex flex-col p-0 overflow-hidden bg-neutral-900 border-neutral-800 hover:border-red-600 transition-all duration-300">
+        <CardHeader className="p-0 relative">
           <div className="relative h-48 overflow-hidden">
             {post.mainImage?.asset?.url && (
               <Image
                 src={post.mainImage.asset.url}
                 alt={post.title}
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-500"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             )}
-
             {post.era && (
               <Badge className="absolute top-4 left-4 bg-red-600 text-white">
-                {post.era} Era
+                {post.era}
               </Badge>
             )}
           </div>
-        </Link>
-      </CardHeader>
+        </CardHeader>
 
-      <CardContent className="p-6 flex-1">
-        <Link href={`/blog/${post.slug.current}`}>
-          <h3 className="text-xl text-white font-bold mb-2 hover:text-red-500 transition-colors line-clamp-2">
+        <CardContent className="p-6 flex-1 flex flex-col">
+          <h3 className="text-xl text-white font-bold mb-2 transition-colors line-clamp-2">
             {post.title}
           </h3>
-        </Link>
-        <p className="text-gray-400 line-clamp-3 mb-4">{post.excerpt}</p>
+          <p className="text-neutral-400 mb-4 line-clamp-3">{post.excerpt}</p>
 
-        {post.categories && post.categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.categories.map((category) => (
-              <Badge
-                key={category.title}
-                variant="secondary"
-                className="bg-neutral-800 text-neutral-300"
-              >
-                {category.title}
-              </Badge>
-            ))}
+          {post.categories && (
+            <div className="mt-auto flex flex-wrap gap-2">
+              {post.categories.map((category) => (
+                <Badge
+                  key={category.title}
+                  variant="secondary"
+                  className="bg-neutral-800 text-neutral-300"
+                >
+                  {category.title}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </CardContent>
+
+        <CardFooter className="p-6 pt-0 flex justify-between items-center text-sm text-neutral-500">
+          <div className="flex items-center gap-2">
+            <User className="w-4 h-4" />
+            <span>{post.author.name}</span>
           </div>
-        )}
-      </CardContent>
-
-      <CardFooter className="p-6 pt-0 flex justify-between items-center text-sm text-neutral-500">
-        <div className="flex items-center gap-2">
-          <User className="w-4 h-4" />
-          <span>{post.author.name}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4" />
-          <span>{formatDate(post.publishedAt)}</span>
-        </div>
-      </CardFooter>
-    </Card>
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4" />
+            <span>{formatDate(post.publishedAt)}</span>
+          </div>
+        </CardFooter>
+      </Card>
+    </Link>
   );
 }

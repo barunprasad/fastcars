@@ -7,21 +7,30 @@ import {
 } from "@/components/home";
 import { getHomepageData } from "@/lib/sanity-graphql";
 import LoadingSpinner from "@/components/ui/loading-spinner";
+import { HomeAnimator } from "@/components/home/HomeAnimator";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function HomePage() {
-  const data = await getHomepageData();
+  const { homepage, featuredCars, legendary, speedRecordsSection } =
+    await getHomepageData();
 
   return (
-    <>
-      <HeroSection data={data.homepage} />
+    <HomeAnimator>
+      <HeroSection data={homepage} />
       <Suspense fallback={<LoadingSpinner />}>
-        <FeaturedCars cars={data.featuredCars} />
+        <FeaturedCars cars={featuredCars} />
       </Suspense>
-      <SpeedRecords />
-      <LegendaryEngines />
-    </>
+      <Suspense fallback={<LoadingSpinner />}>
+        <SpeedRecords data={speedRecordsSection!} />
+      </Suspense>
+      <Suspense fallback={<LoadingSpinner />}>
+        <LegendaryEngines
+          data={legendary!}
+          defaultValue={legendary?.variants[0]?.key}
+        />
+      </Suspense>
+    </HomeAnimator>
   );
 }
