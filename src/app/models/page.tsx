@@ -1,5 +1,6 @@
 import { Suspense } from "react";
-import { ModelsList, ModelsHero } from "@/components/models";
+import { ModelsList } from "@/components/models/ModelsList";
+import { ModelsHero } from "@/components/models/ModelsHero";
 import { getAllCars } from "@/lib/sanity-graphql";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 

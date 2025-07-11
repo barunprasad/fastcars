@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Navigation } from "./Navigation";
+import { Navigation } from "../Navigation";
 import Image from "next/image";
 
 export function Header() {

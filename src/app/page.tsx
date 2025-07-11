@@ -1,10 +1,8 @@
 import { Suspense } from "react";
-import {
-  HeroSection,
-  FeaturedCars,
-  SpeedRecords,
-  LegendaryEngines,
-} from "@/components/home";
+import { HeroSection } from "@/components/home/HeroSection";
+import { FeaturedCars } from "@/components/home/FeaturedCars";
+import { SpeedRecords } from "@/components/home/SpeedRecords";
+import { LegendaryEngines } from "@/components/home/LegendaryEngines";
 import { getHomepageData } from "@/lib/sanity-graphql";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { HomeAnimator } from "@/components/home/HomeAnimator";

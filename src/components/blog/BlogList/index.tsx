@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BlogCard } from "./BlogCard";
+import { BlogCard } from "../BlogCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,

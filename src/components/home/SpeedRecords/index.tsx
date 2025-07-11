@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { fadeSlideUp } from "@/lib/animations";
 
 type Record = { title: string; record: string; holder: string; year: string };

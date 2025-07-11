@@ -13,6 +13,13 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   eslintConfigPrettier,
+  {
+    ignores: [
+      "**/*.test.{ts,tsx}",
+      "**/*.spec.{ts,tsx}",
+      "**/*.stories.{ts,tsx}",
+    ],
+  },
 ];
 
 export default eslintConfig;

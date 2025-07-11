@@ -1,5 +1,6 @@
 import { Suspense } from "react";
-import { BlogList, BlogHero } from "@/components/blog";
+import { BlogList } from "@/components/blog/BlogList";
+import { BlogHero } from "@/components/blog/BlogHero";
 import { getAllBlogPosts } from "@/lib/sanity-graphql";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 
