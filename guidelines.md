@@ -113,6 +113,74 @@ Follows a co-located structure to encapsulate everything related to the componen
 
 - Integration tests are distinctly placed outside the main source (src) for clear differentiation
 
+## Constants and Configuration
+
+### Naming Conventions
+
+Use **UPPERCASE_SNAKE_CASE** for all constants and configuration values:
+
+```typescript
+// ✅ Correct - UPPERCASE_SNAKE_CASE
+export const API_BASE_URL = "https://api.example.com";
+export const MAX_RETRY_ATTEMPTS = 3;
+export const DEFAULT_PAGE_SIZE = 10;
+
+// ✅ For objects and arrays of constants
+export const NAV_LINK_ITEMS = [
+  { value: "/", label: "Home" },
+  { value: "/models", label: "Models" },
+  { value: "/blog", label: "Blogs" },
+] as const;
+
+export const THEME_COLORS = {
+  PRIMARY: "#ff0000",
+  SECONDARY: "#00ff00",
+  BACKGROUND: "#000000",
+} as const;
+
+// ❌ Incorrect - avoid these patterns
+const apiBaseUrl = "https://api.example.com"; // camelCase
+const ApiBaseUrl = "https://api.example.com"; // PascalCase
+const api_base_url = "https://api.example.com"; // lowercase with underscores
+```
+
+### Organization
+
+- Place constants in dedicated files within `src/constants/`
+- Group related constants by domain (e.g., `navigation.ts`, `api.ts`, `theme.ts`)
+- Export interfaces alongside constants when needed
+- Use `as const` assertions for immutable data structures
+
+```typescript
+// src/constants/navigation.ts
+export interface NavLinkItem {
+  value: string;
+  label: string;
+}
+
+export const NAV_LINK_ITEMS: NavLinkItem[] = [
+  { value: "/", label: "Home" },
+  { value: "/models", label: "Models" },
+  { value: "/blog", label: "Blogs" },
+] as const;
+
+// src/constants/api.ts
+export const API_ENDPOINTS = {
+  USERS: "/api/users",
+  POSTS: "/api/posts",
+  COMMENTS: "/api/comments",
+} as const;
+
+export const HTTP_STATUS_CODES = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+} as const;
+```
+
 ## Advanced Routing & Layouts
 
 ### Dynamic Routes with Promise-based Params

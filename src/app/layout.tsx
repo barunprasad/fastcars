@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/navigation/Header";
-import { Footer } from "@/components/common/Footer";
-import { SkipToMain } from "@/components/common/SkipToMain";
+import { Header } from "@/components/Header";
+import { HeaderNavigation } from "@/components/HeaderNavigation";
+import { NAV_LINK_ITEMS } from "@/constants/navigation";
+import { Footer } from "@/components/Footer";
+import { SkipToMain } from "@/components/SkipToMain";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-white overscroll-none bg-black`}
       >
         <SkipToMain />
-        <Header />
+        <Header>
+          <HeaderNavigation navItems={NAV_LINK_ITEMS} />
+        </Header>
         <main id="main-content">{children}</main>
         <Footer />
       </body>

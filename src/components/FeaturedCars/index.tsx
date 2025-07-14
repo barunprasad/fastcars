@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { fadeSlideUp } from "@/lib/animations";
-import { CardGroup } from "@/components/common/CardGroup";
+import { CardGroup } from "@/components/CardGroup";
 
 interface Car {
   _id: string;

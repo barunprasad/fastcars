@@ -7,19 +7,18 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { usePathname } from "next/navigation";
+import { NavLinkItem } from "@/constants/navigation";
 
-const NavLinkItems = [
-  { value: "/", label: "Home" },
-  { value: "/models", label: "Models" },
-  { value: "/blog", label: "Blogs" },
-];
+interface HeaderNavigationProps {
+  navItems: NavLinkItem[];
+}
 
-export function Navigation() {
+export function HeaderNavigation({ navItems }: HeaderNavigationProps) {
   const pathname = usePathname();
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex space-x-1">
-        {NavLinkItems.map(({ label, value }) => {
+        {navItems.map(({ label, value }) => {
           const isActive = pathname === value;
 
           const base =

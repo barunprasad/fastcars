@@ -1,8 +1,8 @@
-// src/components/models/ModelsList.tsx
+// src/components/ModelsList.tsx
 "use client";
 
 import { useState } from "react";
-import { ModelCard } from "@/components/models/ModelCard";
+import { ModelCard } from "@/components/ModelCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
