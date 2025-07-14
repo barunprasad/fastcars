@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { HeroSection } from "./index";
 
 const meta = {
-  title: "Common/HeroSection",
+  title: "Components/HeroSection",
   component: HeroSection,
   parameters: {
     layout: "fullscreen",

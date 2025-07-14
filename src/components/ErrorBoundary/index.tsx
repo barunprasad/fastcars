@@ -64,7 +64,7 @@ export function ErrorBoundary({
                 asChild
                 variant="outline"
                 size="default"
-                className="border-neutral-600 text-white hover:bg-neutral-800"
+                className="border-neutral-600 bg-neutral-800 text-white hover:bg-neutral-900 hover:text-white"
               >
                 <Link href={backButton.href}>
                   <ArrowLeft className="h-4 w-4" />

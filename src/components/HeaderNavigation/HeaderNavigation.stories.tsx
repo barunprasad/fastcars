@@ -3,7 +3,7 @@ import { HeaderNavigation } from "./index";
 import { NAV_LINK_ITEMS } from "@/constants/navigation";
 
 const meta = {
-  title: "Navigation/HeaderNavigation",
+  title: "Components/HeaderNavigation",
   component: HeaderNavigation,
   argTypes: {
     navItems: {

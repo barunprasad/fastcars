@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { ModelCard } from "./index";
 
 const meta = {
-  title: "Models/ModelCard",
+  title: "Components/ModelCard",
   component: ModelCard,
   parameters: {
     layout: "padded",

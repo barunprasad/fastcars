@@ -4,7 +4,7 @@ import { HeaderNavigation } from "@/components/HeaderNavigation";
 import { NAV_LINK_ITEMS } from "@/constants/navigation";
 
 const meta = {
-  title: "Navigation/Header",
+  title: "Components/Header",
   component: Header,
   parameters: {
     layout: "fullscreen",
