@@ -25,7 +25,7 @@ interface ErrorBoundaryProps {
   className?: string;
 }
 
-export default function ErrorBoundary({
+export function ErrorBoundary({
   error,
   reset,
   title,
