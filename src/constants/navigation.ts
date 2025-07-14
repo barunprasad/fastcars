@@ -19,3 +19,13 @@ export const HERO_ACTION_BUTTONS: ActionButton[] = [
   { href: "/models", label: "View All Cars", variant: "primary" },
   { href: "/blog", label: "Read Stories", variant: "secondary" },
 ];
+
+export const CAR_ERAS = [
+  "all",
+  "present",
+  "2010s",
+  "2000s",
+  "90s",
+  "80s",
+  "70s",
+] as const;

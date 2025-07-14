@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Car } from "@/types/sanity";
+import { CAR_ERAS } from "@/constants/navigation";
 
 interface ModelsListProps {
   cars: Car[];
@@ -20,8 +21,6 @@ interface ModelsListProps {
 
 export function ModelsList({ cars }: ModelsListProps) {
   const [selectedEra, setSelectedEra] = useState<string>("all");
-
-  const eras = ["all", "present", "2010s", "2000s", "90s", "80s", "70s"];
 
   const filteredCars =
     selectedEra === "all"
@@ -56,7 +55,7 @@ export function ModelsList({ cars }: ModelsListProps) {
                 <SelectValue placeholder="Filter Era" />
               </SelectTrigger>
               <SelectContent>
-                {eras.map((era) => (
+                {CAR_ERAS.map((era) => (
                   <SelectItem key={era} value={era} className="capitalize">
                     {era === "all" ? "All Eras" : era}
                   </SelectItem>
@@ -73,7 +72,7 @@ export function ModelsList({ cars }: ModelsListProps) {
               className="w-full"
             >
               <TabsList className="flex space-x-2 overflow-x-auto bg-neutral-900 rounded-lg p-1">
-                {eras.map((era) => (
+                {CAR_ERAS.map((era) => (
                   <TabsTrigger
                     key={era}
                     value={era}

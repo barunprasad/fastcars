@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { CAR_ERAS } from "@/constants/navigation";
 
 interface BlogPost {
   _id: string;
@@ -32,8 +33,6 @@ interface BlogListProps {
 export function BlogList({ posts }: BlogListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedEra, setSelectedEra] = useState("all");
-
-  const eras = ["all", "present", "2010s", "2000s", "90s", "80s", "70s"];
 
   const filteredPosts = posts.filter((post) => {
     const matchesSearch =
@@ -63,7 +62,7 @@ export function BlogList({ posts }: BlogListProps) {
                 <SelectValue placeholder="All Eras" />
               </SelectTrigger>
               <SelectContent>
-                {eras.map((era) => (
+                {CAR_ERAS.map((era) => (
                   <SelectItem key={era} value={era} className="capitalize">
                     {era === "all" ? "All Eras" : era}
                   </SelectItem>
@@ -79,7 +78,7 @@ export function BlogList({ posts }: BlogListProps) {
               className="w-full"
             >
               <TabsList className="flex space-x-2 overflow-x-auto bg-neutral-900 rounded-lg p-1">
-                {eras.map((era) => (
+                {CAR_ERAS.map((era) => (
                   <TabsTrigger
                     key={era}
                     value={era}

@@ -47,6 +47,7 @@ project-root/
 │  │  │  ├─ Header.styles.ts       # Component styles or utility classes
 │  │  │  ├─ Header.test.ts         # Component tests
 │  │  │  └─ index.tsx              # Main component file
+│  │  │  └─ SubComponent.tsx       # Sub component file which is only used inside Header
 │  │  │
 │  │  ├─ Footer/
 │  │  │  ├─ Footer.stories.tsx
