@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { usePathname } from "next/navigation";
 import { NavLinkItem } from "@/constants/navigation";
+import { cn } from "@/lib/utils";
 
 interface HeaderNavigationProps {
   navItems: NavLinkItem[];
@@ -28,10 +29,7 @@ export function HeaderNavigation({ navItems }: HeaderNavigationProps) {
           return (
             <NavigationMenuItem key={value}>
               <NavigationMenuLink asChild>
-                <Link
-                  href={value}
-                  className={`${base} ${isActive ? active : ""}`}
-                >
+                <Link href={value} className={cn(base, isActive && active)}>
                   {label}
                 </Link>
               </NavigationMenuLink>

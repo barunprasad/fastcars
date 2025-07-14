@@ -1,16 +1,11 @@
 import { Suspense } from "react";
 import { ModelsList } from "@/components/ModelsList";
+import { ModelsListLoading } from "@/components/ModelsList/ModelsListLoading";
 import { HeroSection } from "@/components/HeroSection";
 import { getAllCars, getModelsHeroData } from "@/lib/sanity-graphql";
-import LoadingSpinner from "@/components/ui/loading-spinner";
+import { MODELS_PAGE_METADATA } from "@/constants/metadata";
 
-export const metadata = {
-  title: "Fast Cars Collection - All Models",
-  description: "Browse our complete collection of fast cars from every era",
-};
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const metadata = MODELS_PAGE_METADATA;
 
 export default async function ModelsPage() {
   const [cars, modelsHero] = await Promise.all([
@@ -29,7 +24,7 @@ export default async function ModelsPage() {
         videoUrl={modelsHero?.heroVideo?.asset?.url}
         variant="compact"
       />
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<ModelsListLoading />}>
         <ModelsList cars={cars} />
       </Suspense>
     </>

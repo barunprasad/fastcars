@@ -8,8 +8,6 @@ import { Calendar, User, ArrowLeft } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { PortableText } from "@portabletext/react";
 
-export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts();
   return posts.map((post) => ({

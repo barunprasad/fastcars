@@ -1,17 +1,11 @@
 import { Suspense } from "react";
 import { BlogList } from "@/components/BlogList";
+import { BlogListLoading } from "@/components/BlogList/BlogListLoading";
 import { HeroSection } from "@/components/HeroSection";
 import { getAllBlogPosts, getBlogHeroData } from "@/lib/sanity-graphql";
-import LoadingSpinner from "@/components/ui/loading-spinner";
+import { BLOG_PAGE_METADATA } from "@/constants/metadata";
 
-export const metadata = {
-  title: "Fast Cars Blog - Stories of Speed",
-  description:
-    "Read about legendary fast cars, racing history, and automotive innovation",
-};
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const metadata = BLOG_PAGE_METADATA;
 
 export default async function BlogPage() {
   const [posts, blogHero] = await Promise.all([
@@ -30,7 +24,7 @@ export default async function BlogPage() {
         videoUrl={blogHero?.heroVideo?.asset?.url}
         variant="compact"
       />
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<BlogListLoading />}>
         <BlogList posts={posts} />
       </Suspense>
     </>

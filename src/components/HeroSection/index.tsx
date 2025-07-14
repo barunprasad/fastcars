@@ -1,11 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
-
-interface ActionButton {
-  href: string;
-  label: string;
-  variant?: "primary" | "secondary";
-}
+import { cn } from "@/lib/utils";
+import { ActionButton } from "@/constants/navigation";
 
 interface HeroSectionProps {
   title: string;
@@ -37,7 +33,7 @@ export function HeroSection({
     : "justify-center items-center";
 
   return (
-    <section className={`relative ${heightClass} overflow-hidden`}>
+    <section className={cn("relative overflow-hidden", heightClass)}>
       {videoUrl && (
         <video
           autoPlay
@@ -53,17 +49,28 @@ export function HeroSection({
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
 
       <div
-        className={`relative h-full flex ${contentLayoutClass} text-white px-6`}
+        className={cn(
+          "relative h-full flex text-white px-6",
+          contentLayoutClass,
+        )}
       >
         <div className="text-center">
           <h1
-            className={`${titleSizeClass} ${titleWeightClass} mb-4 animate-fade-in`}
+            className={cn(
+              "mb-4 animate-fade-in",
+              titleSizeClass,
+              titleWeightClass,
+            )}
           >
             {title}
           </h1>
 
           <p
-            className={`${subtitleSizeClass} text-center max-w-3xl mx-auto mb-8 animate-slide-in ${subtitleColorClass}`}
+            className={cn(
+              "text-center max-w-3xl mx-auto mb-8 animate-slide-in",
+              subtitleSizeClass,
+              subtitleColorClass,
+            )}
           >
             {subtitle}
           </p>
@@ -74,11 +81,12 @@ export function HeroSection({
                 <Link
                   key={index}
                   href={action.href}
-                  className={`px-4 py-2 md:px-8 md:py-4 text-sm md:text-lg font-semibold tracking-wider transition-all ${
+                  className={cn(
+                    "px-4 py-2 md:px-8 md:py-4 text-sm md:text-lg font-semibold tracking-wider transition-all",
                     action.variant === "secondary"
                       ? "border-2 border-white text-white hover:bg-white hover:text-black"
-                      : "bg-red-600 text-white hover:bg-red-700"
-                  }`}
+                      : "bg-red-600 text-white hover:bg-red-700",
+                  )}
                 >
                   {action.label}
                 </Link>

@@ -4,22 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { fadeSlideUp } from "@/lib/animations";
 import { CardGroup } from "@/components/CardGroup";
-
-interface Car {
-  _id: string;
-  name: string;
-  manufacturer: string;
-  year: number;
-  topSpeed: number;
-  acceleration: string;
-  price: string;
-  mainImage: {
-    asset: {
-      url: string;
-    };
-  };
-  era: string;
-}
+import { Car } from "@/types/sanity";
 
 interface FeaturedCarsProps {
   cars: Car[];

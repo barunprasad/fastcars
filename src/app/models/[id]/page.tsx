@@ -14,8 +14,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const cars = await getAllCars();
   return cars.map((car) => ({ id: car._id }));

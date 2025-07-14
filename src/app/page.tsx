@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { FeaturedCars } from "@/components/FeaturedCars";
+import { FeaturedCarsLoading } from "@/components/FeaturedCars/FeaturedCarsLoading";
 import { SpeedRecords } from "@/components/SpeedRecords";
+import { SpeedRecordsLoading } from "@/components/SpeedRecords/SpeedRecordsLoading";
 import { LegendaryEngines } from "@/components/LegendaryEngines";
+import { LegendaryEnginesLoading } from "@/components/LegendaryEngines/LegendaryEnginesLoading";
 import { getHomepageData } from "@/lib/sanity-graphql";
-import LoadingSpinner from "@/components/ui/loading-spinner";
 import { HomeAnimator } from "@/components/HomeAnimator";
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+import { HERO_ACTION_BUTTONS } from "@/constants/navigation";
 
 export default async function HomePage() {
   const { homepage, featuredCars, legendary, speedRecordsSection } =
@@ -25,18 +25,15 @@ export default async function HomePage() {
         videoUrl={homepage?.heroVideo?.asset?.url}
         variant="fullscreen"
         showScrollIndicator={true}
-        actions={[
-          { href: "/models", label: "View All Cars", variant: "primary" },
-          { href: "/blog", label: "Read Stories", variant: "secondary" },
-        ]}
+        actions={HERO_ACTION_BUTTONS}
       />
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<FeaturedCarsLoading />}>
         <FeaturedCars cars={featuredCars} />
       </Suspense>
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<SpeedRecordsLoading />}>
         <SpeedRecords data={speedRecordsSection!} />
       </Suspense>
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<LegendaryEnginesLoading />}>
         <LegendaryEngines
           data={legendary!}
           defaultValue={legendary?.variants[0]?.key}
