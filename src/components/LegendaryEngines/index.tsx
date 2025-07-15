@@ -55,13 +55,14 @@ export function LegendaryEngines({ data, defaultValue }: Props) {
         >
           <div className="w-auto h-64 sm:h-80 md:h-96 overflow-hidden rounded-lg shadow-lg">
             <video
-              src={data?.videoUrl?.asset.url}
               autoPlay
               muted
               loop
               playsInline
               className="w-full h-full object-cover"
-            />
+            >
+              <source src={data?.videoUrl?.asset.url} type="video/mp4" />
+            </video>
           </div>
         </motion.div>
       </div>
