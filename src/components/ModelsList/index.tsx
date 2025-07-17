@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { ModelCard } from "@/components/ModelCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -14,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Car } from "@/types/sanity";
 import { CAR_ERAS } from "@/constants/navigation";
+import { CarList } from "@/components/CarList";
 
 const getEraDescription = (era: string, cars: Car[]) => {
   const descriptions: Record<string, string> = {
@@ -101,19 +101,7 @@ export function ModelsList({ cars }: ModelsListProps) {
         </div>
 
         {/* Cards Grid */}
-        {filteredCars.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCars.map((car) => (
-              <ModelCard key={car._id} car={car} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-neutral-400 text-lg">
-              No models found for this era.
-            </p>
-          </div>
-        )}
+        <CarList cars={filteredCars} />
       </div>
     </section>
   );

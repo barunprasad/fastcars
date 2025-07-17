@@ -36,6 +36,14 @@ export function Footer() {
                 Blog
               </Link>
             </li>
+            <li>
+              <Link
+                href="/favorites"
+                className="hover:text-white transition-colors"
+              >
+                Favorites
+              </Link>
+            </li>
           </ul>
         </div>
 

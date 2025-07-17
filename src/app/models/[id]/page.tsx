@@ -35,7 +35,10 @@ export default async function CarDetailPage({
     <div className="min-h-screen pt-20">
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Link href="/models">
-          <Button variant="ghost" className="mb-6 cursor-pointer">
+          <Button
+            variant="ghost"
+            className="mb-6 cursor-pointer hover:bg-neutral-800 hover:text-white"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Models
           </Button>

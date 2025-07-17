@@ -1,20 +1,8 @@
+import { Car } from "@/types/sanity";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface Car {
-  _id: string;
-  name: string;
-  manufacturer: string;
-  year: number;
-  price: string;
-  mainImage: {
-    asset: {
-      url: string;
-    };
-  };
-}
-
-interface StoreState {
+export interface StoreState {
   favorites: Car[];
   comparisonList: Car[];
   addToFavorites: (car: Car) => void;

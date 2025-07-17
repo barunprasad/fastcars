@@ -16,3 +16,8 @@ export const MODELS_PAGE_METADATA: Metadata = {
   title: "Fast Cars Collection - All Models",
   description: "Browse our complete collection of fast cars from every era",
 };
+
+export const FAVORITES_PAGE_METADATA: Metadata = {
+  title: "Fast Cars Collection - Favorites",
+  description: "Your favorite cars",
+};
